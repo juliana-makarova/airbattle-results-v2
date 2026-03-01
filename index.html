@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Battles | Голосование</title>
+    <title>AI-BATTLE#3 | Голосование</title>
     <style>
         * {
             margin: 0;
@@ -45,12 +45,12 @@
 
         .battle-meta {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             gap: 24px;
             max-width: 720px;
             margin: 0 auto;
-            text-align: left;
+            text-align: center;
         }
 
         .battle-meta-item {
@@ -625,16 +625,12 @@
 <div class="container">
     <!-- HEADER -->
     <div class="header">
-        <h1>AI-BATTLE#2: KARMA</h1>
+        <h1>AI-BATTLE#3</h1>
         <div class="battle-number">
             <div class="battle-meta">
                 <div class="battle-meta-item">
                     <span class="battle-meta-emoji">⏰</span>
-                    <span>До 30.12.2025 23:59</span>
-                </div>
-                <div class="battle-meta-item">
-                    <span class="battle-meta-emoji">💰</span>
-                    <span>Приз за каждое задание: 7000₽</span>
+                    <span>До 5 марта 2026 23:59</span>
                 </div>
             </div>
         </div>
@@ -642,18 +638,16 @@
 
     <!-- TABS -->
     <div class="tabs">
-        <div class="tab active" data-battle="1">Задание #1: ДИЗАЙН МЕРЧА</div>
-        <div class="tab" data-battle="2">Задание #2: AI-ГЕНЕРАЦИЯ МЕНЮ</div>
-        <div class="tab" data-battle="3">Задание #3: ПРЕЗЕНТАЦИЯ ЛОКАЦИИ</div>
+        <div class="tab active" data-battle="1">Задание#1 O'STIN</div>
+        <div class="tab" data-battle="2">Задание#2 FLOWOW</div>
+        <div class="tab" data-battle="3">Задание#3 SPEEDO</div>
     </div>
 
     <!-- TASK BRIEF -->
     <div class="task-brief">
         <h2>Техническое задание</h2>
         <div id="task-description">
-            Разработать концепцию брендинга для нового ресторана премиум-класса в центре Сочи. 
-            Целевая аудитория: бизнес-туристы и состоятельные местные жители 30-50 лет. 
-            Нужно создать: логотип, фирменный стиль, концепцию интерьера.
+            Загрузка...
         </div>
     </div>
 
@@ -666,9 +660,9 @@
     <div class="cta-section">
         <div class="cta-title">Голосуйте за работы по другим заданиям</div>
         <div class="tabs tabs--bottom">
-            <div class="tab" data-battle="1">Задание #1: ДИЗАЙН МЕРЧА</div>
-            <div class="tab" data-battle="2">Задание #2: AI-ГЕНЕРАЦИЯ МЕНЮ</div>
-            <div class="tab" data-battle="3">Задание #3: ПРЕЗЕНТАЦИЯ ЛОКАЦИИ</div>
+            <div class="tab" data-battle="1">Задание#1 O'STIN</div>
+            <div class="tab" data-battle="2">Задание#2 FLOWOW</div>
+            <div class="tab" data-battle="3">Задание#3 SPEEDO</div>
         </div>
     </div>
 
@@ -687,289 +681,147 @@
 
 const BATTLES_CONFIG = {
     1: {
-        title: "Задание #1: ДИЗАЙН МЕРЧА",
+        title: "Задание#1 O'STIN",
         taskHtml: `
             <div>
-                <span class="task-heading">Бриф для участников:</span><br/>
-                Создайте концепцию брендированного мерча для ресторана Karma.<br/><br/>
-
+                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
                 <span class="task-heading">Требования:</span>
                 <ul class="task-list">
-                    <li>Изучить фирменный стиль Karma на <a href="https://karmaeasyfood.com" target="_blank" rel="noopener noreferrer">karmaeasyfood.com</a></li>
-                    <li>Мерч должен соответствовать существующей визуальной айдентике</li>
-                    <li>Учесть «оффлайн» стиль бренда</li>
-                    <li>Формат: Визуализация 2-5 позиций мерча (футболки, кепки, стикерпаки, посуда и т.д.)</li>
+                    <li>Изучить фирменный стиль [название бренда]</li>
+                    <li>Изучи технические требования к изображениям сайта маркетплейса</li>
+                    <li>Создай визуализацию: серию картинок для карточки товара</li>
                 </ul>
             </div>
         `,
         participants: [
             {
-                id: "sabdes",
-                name: "Сергей Большаков",
-                handle: "@sabdes",
-                telegramUrl: "https://t.me/sabdes",
+                id: "AI_Art_Lab_Creative",
+                name: "[Имя Участника]",
+                handle: "@AI_Art_Lab_Creative",
+                telegramUrl: "https://t.me/AI_Art_Lab_Creative",
                 works: [
-                    { url: "assets/battle-1/sabdes/work-01.jpg" },
-                    { url: "assets/battle-1/sabdes/work-02.jpg" },
-                    { url: "assets/battle-1/sabdes/work-03.jpg" },
-                    { url: "assets/battle-1/sabdes/work-04.jpg" },
-                    { url: "assets/battle-1/sabdes/work-05.jpg" },
-                    { url: "assets/battle-1/sabdes/work-07.jpg" },
-                    { url: "assets/battle-1/sabdes/work-08.jpg" },
-                    { url: "assets/battle-1/sabdes/work-09.jpg" },
-                    { url: "assets/battle-1/sabdes/work-10.jpg" },
-                    { url: "assets/battle-1/sabdes/work-11.jpg" },
-                    { url: "assets/battle-1/sabdes/work-12.jpg" },
-                    { url: "assets/battle-1/sabdes/work-13.jpg" },
-                    { url: "assets/battle-1/sabdes/work-14.jpg" },
-                    { url: "assets/battle-1/sabdes/work-15.jpg" },
-                    { url: "assets/battle-1/sabdes/work-16.jpg" },
-                    { url: "assets/battle-1/sabdes/work-17.jpg" },
-                    { url: "assets/battle-1/sabdes/work-18.jpg" },
-                    { url: "assets/battle-1/sabdes/work-20.jpg" },
-                    { url: "assets/battle-1/sabdes/work-21.jpg" },
-                    { url: "https://bs.boomstream.com/balancer/Y3El82iu-3YdfktUl.mp4", label: "Презентация" }
-                ]
-            },
-            {
-                id: "kirillpolzikov",
-                name: "Кирилл Ползиков",
-                handle: "@kirillpolzikov",
-                telegramUrl: "https://t.me/kirillpolzikov",
-                works: [
-                    { url: "assets/battle-1/kirillpolzikov/work-01.jpeg" },
-                    { url: "assets/battle-1/kirillpolzikov/work-02.png" },
-                    { url: "assets/battle-1/kirillpolzikov/work-03.jpeg" },
-                    { url: "assets/battle-1/kirillpolzikov/work-04.jpeg" },
-                    { url: "assets/battle-1/kirillpolzikov/work-05.png" },
-                    { url: "assets/battle-1/kirillpolzikov/work-06.jpeg" },
-                    { url: "assets/battle-1/kirillpolzikov/work-07.png" },
-                    { url: "https://bs.boomstream.com/balancer/U6VUg4mi-3YdfktUl.mp4", label: "Презентация" }
-                ]
-            },
-            {
-                id: "OlgaDorr",
-                name: "Ольга Дорошенко",
-                handle: "@OlgaDorr",
-                telegramUrl: "https://t.me/OlgaDorr",
-                works: [
-                    { url: "assets/battle-1/OlgaDorr/work-01.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-02.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-03.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-04.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-05.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-06.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-07.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-08.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-09.jpg" },
-                    { url: "assets/battle-1/OlgaDorr/work-10.jpg" },
-                    { url: "https://bs.boomstream.com/balancer/6drddtaI-3YdfktUl.mp4", label: "Презентация" }
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-01.jpeg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-02.png" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-03.jpeg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-05.jpeg" }
                 ]
             },
             {
                 id: "Eddsgn",
-                name: "Эдуард Зарипов",
+                name: "[Имя Участника]",
                 handle: "@Eddsgn",
                 telegramUrl: "https://t.me/Eddsgn",
-                works: [
-                    { url: "assets/battle-1/Eddsgn/work-01.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-02.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-03.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-04.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-05.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-06.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-07.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-08.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-09.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-10.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-11.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-12.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-13.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-14.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-15.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-16.jpg" },
-                    { url: "assets/battle-1/Eddsgn/work-17.jpg" },
-                    { url: "https://bs.boomstream.com/balancer/UBz5wjku-3YdfktUl.mp4", label: "Презентация" }
-                ]
+                works: []
             },
             {
-                id: "Valit",
-                name: "Вялит Султанов",
-                handle: "@Valit",
-                telegramUrl: "https://t.me/Valit",
+                id: "artem_polienko",
+                name: "[Имя Участника]",
+                handle: "@artem_polienko",
+                telegramUrl: "https://t.me/artem_polienko",
                 works: [
-                    { url: "assets/battle-1/Valit/work-01.jpg" },
-                    { url: "assets/battle-1/Valit/work-02.jpg" },
-                    { url: "assets/battle-1/Valit/work-03.jpg" },
-                    { url: "assets/battle-1/Valit/work-04.jpg" },
-                    { url: "assets/battle-1/Valit/work-05.mp4", label: "Презентация" }
+                    { url: "assets/battle-1/artem_polienko/work-01.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-02.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-03.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-04.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-05.jpg" }
                 ]
             },
             {
                 id: "nice2mitya",
-                name: "Митя Амбарцумян",
+                name: "[Имя Участника]",
                 handle: "@nice2mitya",
                 telegramUrl: "https://t.me/nice2mitya",
-                works: [
-                    { url: "assets/battle-1/nice2mitya/work-01.jpg" },
-                    { url: "assets/battle-1/nice2mitya/work-02.jpg" },
-                    { url: "assets/battle-1/nice2mitya/work-03.jpg" },
-                    { url: "assets/battle-1/nice2mitya/work-04.jpg" },
-                    { url: "assets/battle-1/nice2mitya/work-05.mp4", label: "Презентация" }
-                ]
+                works: []
+            },
+            {
+                id: "p1",
+                name: "[Имя Участника]",
+                handle: "@p1",
+                telegramUrl: "https://t.me/p1",
+                works: []
+            },
+            {
+                id: "sabdes",
+                name: "[Имя Участника]",
+                handle: "@sabdes",
+                telegramUrl: "https://t.me/sabdes",
+                works: []
             }
         ]
     },
     2: {
-        title: "Задание #2: AI-ГЕНЕРАЦИЯ МЕНЮ",
+        title: "Задание#2 FLOWOW",
         taskHtml: `
             <div>
-                <span class="task-heading">Бриф для участников:</span><br/>
-                Создайте визуальный контент для блюда "Микс: Биф" из меню Karma.<br/><br/>
-
-                <span class="task-heading">Описание блюда:</span><br/>
-                <div style="color:#ccc; line-height:1.8; font-size:16px;">
-                    "Микс: Биф" 400г<br/>
-                    Котлета из мраморной говядины, чеддер, бекон,<br/>
-                    свежие овощи, хлеб и горчичный соус
-                </div>
-                <br/>
-
-                <span class="task-heading">Гарнир на выбор:</span>
+                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
+                <span class="task-heading">Требования:</span>
                 <ul class="task-list">
-                    <li>Гречка 120г</li>
-                    <li>Картофель бейби 120г</li>
-                    <li>Рис 120г</li>
-                </ul>
-
-                <span class="task-heading">Deliverables:</span>
-                <ul class="task-list">
-                    <li>Фото блюда — реалистичное/креативное изображение</li>
-                    <li>Видео блюда — динамическая видео-презентация (по желанию)</li>
+                    <li>Изучить фирменный стиль [название бренда]</li>
+                    <li>Изучи технические требования к изображениям сайта маркетплейса</li>
+                    <li>Создай визуализацию: серию картинок для карточки товара</li>
                 </ul>
             </div>
         `,
         participants: [
             {
-                id: "sabdes",
-                name: "Сергей Большаков",
-                handle: "@sabdes",
-                telegramUrl: "https://t.me/sabdes",
+                id: "AleksandraMalykh",
+                name: "[Имя Участника]",
+                handle: "@AleksandraMalykh",
+                telegramUrl: "https://t.me/AleksandraMalykh",
                 works: [
-                    { url: "assets/battle-2/sabdes/work-01.jpg" },
-                    { url: "assets/battle-2/sabdes/work-02.png" },
-                    { url: "assets/battle-2/sabdes/work-03.png" },
-                    { url: "assets/battle-2/sabdes/work-04.mp4" },
-                    { url: "assets/battle-2/sabdes/work-05.mp4" }
-                ]
-            },
-            {
-                id: "Lyubashka_ph",
-                name: "Любовь Пунанцева",
-                handle: "@Lyubashka_ph",
-                telegramUrl: "https://t.me/Lyubashka_ph",
-                works: [
-                    { url: "assets/battle-2/Lyubashka_ph/work-01.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-02.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-03.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-04.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-05.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-06.jpg?v=20251226" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-07.jpg" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-08.mp4" },
-                    { url: "assets/battle-2/Lyubashka_ph/work-09.mp4", label: "Презентация" }
-                ]
-            },
-            {
-                id: "kirillpolzikov",
-                name: "Кирилл Ползиков",
-                handle: "@kirillpolzikov",
-                telegramUrl: "https://t.me/kirillpolzikov",
-                works: [
-                    { url: "assets/battle-2/kirillpolzikov/work-01.jpeg" },
-                    { url: "assets/battle-2/kirillpolzikov/work-02.png" },
-                    { url: "assets/battle-2/kirillpolzikov/work-03.mp4" },
-                    { url: "assets/battle-2/kirillpolzikov/work-04.mp4" }
+                    { url: "assets/battle-2/AleksandraMalykh/work-01.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-02.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-03.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-04.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-05.jpg" }
                 ]
             },
             {
                 id: "Eddsgn",
-                name: "Эдуард Зарипов",
+                name: "[Имя Участника]",
                 handle: "@Eddsgn",
                 telegramUrl: "https://t.me/Eddsgn",
-                works: [
-                    { url: "assets/battle-2/Eddsgn/work-01.jpg" },
-                    { url: "assets/battle-2/Eddsgn/work-02.mp4" },
-                    { url: "assets/battle-2/Eddsgn/work-03.mp4" }
-                ]
+                works: []
             },
             {
-                id: "Valit",
-                name: "Вялит Султанов",
-                handle: "@Valit",
-                telegramUrl: "https://t.me/Valit",
-                works: [
-                    { url: "assets/battle-2/Valit/work-01.mp4" },
-                    { url: "assets/battle-2/Valit/work-02.mp4", label: "Презентация" }
-                ]
+                id: "kirillpolzikov",
+                name: "[Имя Участника]",
+                handle: "@kirillpolzikov",
+                telegramUrl: "https://t.me/kirillpolzikov",
+                works: []
             },
             {
-                id: "nice2mitya",
-                name: "Митя Амбарцумян",
-                handle: "@nice2mitya",
-                telegramUrl: "https://t.me/nice2mitya",
-                works: [
-                    { url: "assets/battle-2/nice2mitya/work-01.jpg" },
-                    { url: "assets/battle-2/nice2mitya/work-02.jpg" },
-                    { url: "assets/battle-2/nice2mitya/work-03.jpg" },
-                    { url: "assets/battle-2/nice2mitya/work-04.jpg" },
-                    { url: "assets/battle-2/nice2mitya/work-05.jpg" },
-                    { url: "assets/battle-2/nice2mitya/work-06.mp4" },
-                    { url: "assets/battle-2/nice2mitya/work-07.mp4", label: "Презентация" }
-                ]
+                id: "sabdes",
+                name: "[Имя Участника]",
+                handle: "@sabdes",
+                telegramUrl: "https://t.me/sabdes",
+                works: []
             }
         ]
     },
     3: {
-        title: "Задание #3: ПРЕЗЕНТАЦИЯ ЛОКАЦИИ",
+        title: "Задание#3 SPEEDO",
         taskHtml: `
             <div>
-                <span class="task-heading">Бриф для участников:</span><br/>
-                Представьте ресторан Karma (Морской переулок, Сочи) так, чтобы у зрителя возникло желание его посетить.<br/><br/>
-
-                <span class="task-heading">Возможный формат:</span><br/>
-                360° видео, короткий ролик (до 60 сек) или любой креативный формат презентации пространства.
+                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
+                <span class="task-heading">Требования:</span>
+                <ul class="task-list">
+                    <li>Изучить фирменный стиль [название бренда]</li>
+                    <li>Изучи технические требования к изображениям сайта маркетплейса</li>
+                    <li>Создай визуализацию: серию картинок для карточки товара</li>
+                </ul>
             </div>
         `,
         participants: [
             {
-                id: "sabdes",
-                name: "Сергей Большаков",
-                handle: "@sabdes",
-                telegramUrl: "https://t.me/sabdes",
+                id: "annaivoylova",
+                name: "[Имя Участника]",
+                handle: "@annaivoylova",
+                telegramUrl: "https://t.me/annaivoylova",
                 works: [
-                    { url: "assets/battle-3/sabdes/work-01.mp4" },
-                    { url: "assets/battle-3/sabdes/work-02.mp4" }
-                ]
-            },
-            {
-                id: "Valit",
-                name: "Вялит Султанов",
-                handle: "@Valit",
-                telegramUrl: "https://t.me/Valit",
-                works: [
-                    { url: "assets/battle-3/Valit/work-01.mp4" },
-                    { url: "assets/battle-3/Valit/work-2.mp4", label: "Презентация" }
-                ]
-            },
-            {
-                id: "nice2mitya",
-                name: "Митя Амбарцумян",
-                handle: "@nice2mitya",
-                telegramUrl: "https://t.me/nice2mitya",
-                works: [
-                    { url: "assets/battle-3/nice2mitya/work-01.mp4" },
-                    { url: "assets/battle-3/nice2mitya/work-02.mp4", label: "Презентация" }
+                    { url: "assets/battle-3/annaivoylova/work-01.png" },
+                    { url: "assets/battle-3/annaivoylova/work-02.png" },
+                    { url: "assets/battle-3/annaivoylova/work-03.png" }
                 ]
             }
         ]
@@ -1415,8 +1267,10 @@ function renderMedia(media) {
         // Локальные/прямые mp4/webm/ogg/mov
         if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(media.url)) {
             const typeAttr = media.url.toLowerCase().includes('.mov') ? 'video/quicktime' : 'video/mp4';
+            const posterUrl = (typeof media.posterUrl === 'string' && media.posterUrl.trim()) ? media.posterUrl.trim() : '';
+            const posterAttr = posterUrl ? ` poster="${escapeHtml(posterUrl)}"` : '';
             return `
-                <video controls playsinline preload="metadata" data-autoposter="1" crossorigin="anonymous">
+                <video controls playsinline preload="metadata" data-autoposter="1" crossorigin="anonymous"${posterAttr}>
                     <source src="${media.url}" type="${typeAttr}" />
                     Ваш браузер не поддерживает видео.
                 </video>
@@ -1446,19 +1300,20 @@ function inferMediaTypeFromUrl(url) {
 function renderWorkItem(work, battleId, participantId, idx) {
     const url = work?.url || '';
     const type = work?.type || inferMediaTypeFromUrl(url);
-    const label = work?.label || `Pipeline ${idx + 1}`;
+    const label = (typeof work?.label === 'string' && work.label.trim()) ? work.label.trim() : '';
+    const posterUrl = (typeof work?.posterUrl === 'string' && work.posterUrl.trim()) ? work.posterUrl.trim() : '';
 
     const safeUrl = escapeHtml(url);
     const safePid = escapeHtml(participantId);
-    const safeLabel = escapeHtml(label);
+    const safeLabel = label ? escapeHtml(label) : '';
 
     const mediaHtml = url
-        ? renderMedia({ type, url })
+        ? renderMedia({ type, url, posterUrl })
         : 'Медиа скоро появится...';
 
     return `
         <div class="media-item" data-battle="${battleId}" data-participant="${safePid}" data-work-url="${safeUrl}">
-            <div class="media-label">${safeLabel}</div>
+            ${safeLabel ? `<div class="media-label">${safeLabel}</div>` : ''}
             <div class="media-content">${mediaHtml}</div>
 
             <div class="voting-section voting-section--work">
