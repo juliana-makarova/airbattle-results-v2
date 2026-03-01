@@ -795,6 +795,19 @@ const BATTLES_CONFIG = {
                 ]
             },
             {
+                id: "Asiya_kzn",
+                name: "[Имя Участника]",
+                handle: "@Asiya_kzn",
+                telegramUrl: "https://t.me/Asiya_kzn",
+                works: [
+                    { url: "assets/battle-1/Asiya_kzn/work-01-preview.jpg", fullUrl: "assets/battle-1/Asiya_kzn/work-01-full.jpg" },
+                    { url: "assets/battle-1/Asiya_kzn/work-02-preview.jpg", fullUrl: "assets/battle-1/Asiya_kzn/work-02-full.jpg" },
+                    { url: "assets/battle-1/Asiya_kzn/work-03-preview.jpg", fullUrl: "assets/battle-1/Asiya_kzn/work-03-full.jpg" },
+                    { url: "assets/battle-1/Asiya_kzn/work-04-preview.jpg", fullUrl: "assets/battle-1/Asiya_kzn/work-04-full.jpg" },
+                    { url: "assets/battle-1/Asiya_kzn/work-05-preview.jpg", fullUrl: "assets/battle-1/Asiya_kzn/work-05-full.jpg" }
+                ]
+            },
+            {
                 id: "artem_polienko",
                 name: "[Имя Участника]",
                 handle: "@artem_polienko",
@@ -1032,12 +1045,13 @@ function renderBattle(battleId) {
     const container = document.getElementById('participants-container');
     container.innerHTML = '';
     
-    if (battle.participants.length === 0) {
+    const participants = (battle?.participants || []).filter(p => Array.isArray(p?.works) && p.works.length > 0);
+    if (participants.length === 0) {
         container.innerHTML = '<div style="text-align:center; padding:60px; color:#666;">Участники скоро появятся</div>';
         return;
     }
     
-    battle.participants.forEach(participant => {
+    participants.forEach(participant => {
         container.appendChild(createParticipantCard(participant, battleId));
     });
 }
