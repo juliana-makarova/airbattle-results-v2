@@ -361,6 +361,81 @@
             object-fit: contain;
         }
 
+        .media-content img[data-lightbox="1"] {
+            cursor: zoom-in;
+        }
+
+        /* LIGHTBOX (fullscreen image viewer) */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 9999;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox__panel {
+            position: relative;
+            width: min(1200px, 100%);
+            height: min(900px, 100%);
+            max-width: 96vw;
+            max-height: 96vh;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .lightbox__media {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .lightbox__img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .lightbox__caption {
+            color: #bbb;
+            font-size: 14px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .lightbox__close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid #333;
+            background: rgba(20, 20, 20, 0.9);
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .lightbox__close:hover {
+            border-color: #ff0066;
+        }
+
         /* VOTING SECTION */
         .voting-section {
             background: #0f0f0f;
@@ -638,9 +713,9 @@
 
     <!-- TABS -->
     <div class="tabs">
-        <div class="tab active" data-battle="1">Задание#1 O'STIN</div>
-        <div class="tab" data-battle="2">Задание#2 FLOWOW</div>
-        <div class="tab" data-battle="3">Задание#3 SPEEDO</div>
+        <div class="tab active" data-battle="1">Задание #1 O'STIN</div>
+        <div class="tab" data-battle="2">Задание #2 FLOWOW</div>
+        <div class="tab" data-battle="3">Задание #3 SPEEDO</div>
     </div>
 
     <!-- TASK BRIEF -->
@@ -660,15 +735,26 @@
     <div class="cta-section">
         <div class="cta-title">Голосуйте за работы по другим заданиям</div>
         <div class="tabs tabs--bottom">
-            <div class="tab" data-battle="1">Задание#1 O'STIN</div>
-            <div class="tab" data-battle="2">Задание#2 FLOWOW</div>
-            <div class="tab" data-battle="3">Задание#3 SPEEDO</div>
+            <div class="tab" data-battle="1">Задание #1 O'STIN</div>
+            <div class="tab" data-battle="2">Задание #2 FLOWOW</div>
+            <div class="tab" data-battle="3">Задание #3 SPEEDO</div>
         </div>
     </div>
 
     <!-- FOOTER -->
     <div class="footer">
         AI-Battles © 2025 | Эксперты решают задачи бизнеса
+    </div>
+</div>
+
+<!-- LIGHTBOX (fullscreen image viewer) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+        <button class="lightbox__close" type="button" id="lightbox-close" aria-label="Закрыть">✕</button>
+        <div class="lightbox__media">
+            <img class="lightbox__img" id="lightbox-img" alt="Просмотр" />
+        </div>
+        <div class="lightbox__caption" id="lightbox-caption"></div>
     </div>
 </div>
 
@@ -681,10 +767,11 @@
 
 const BATTLES_CONFIG = {
     1: {
-        title: "Задание#1 O'STIN",
+        title: "Задание #1 O'STIN",
         taskHtml: `
             <div>
-                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
+                <div>Создайте серию картинок и видео для карточки товара на маркетплейсе</div>
+                <br/>
                 <span class="task-heading">Требования:</span>
                 <ul class="task-list">
                     <li>Изучить фирменный стиль [название бренда]</li>
@@ -700,18 +787,12 @@ const BATTLES_CONFIG = {
                 handle: "@AI_Art_Lab_Creative",
                 telegramUrl: "https://t.me/AI_Art_Lab_Creative",
                 works: [
-                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-01.jpeg" },
-                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-02.png" },
-                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-03.jpeg" },
-                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-05.jpeg" }
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-01-preview.jpg", fullUrl: "assets/battle-1/AI_Art_Lab_Creative/work-01-full.jpg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-02-preview.jpg", fullUrl: "assets/battle-1/AI_Art_Lab_Creative/work-02-full.jpg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-03-preview.jpg", fullUrl: "assets/battle-1/AI_Art_Lab_Creative/work-03-full.jpg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-04-preview.jpg", fullUrl: "assets/battle-1/AI_Art_Lab_Creative/work-04-full.jpg" },
+                    { url: "assets/battle-1/AI_Art_Lab_Creative/work-05-preview.jpg", fullUrl: "assets/battle-1/AI_Art_Lab_Creative/work-05-full.jpg" }
                 ]
-            },
-            {
-                id: "Eddsgn",
-                name: "[Имя Участника]",
-                handle: "@Eddsgn",
-                telegramUrl: "https://t.me/Eddsgn",
-                works: []
             },
             {
                 id: "artem_polienko",
@@ -719,41 +800,21 @@ const BATTLES_CONFIG = {
                 handle: "@artem_polienko",
                 telegramUrl: "https://t.me/artem_polienko",
                 works: [
-                    { url: "assets/battle-1/artem_polienko/work-01.jpg" },
-                    { url: "assets/battle-1/artem_polienko/work-02.jpg" },
-                    { url: "assets/battle-1/artem_polienko/work-03.jpg" },
-                    { url: "assets/battle-1/artem_polienko/work-04.jpg" },
-                    { url: "assets/battle-1/artem_polienko/work-05.jpg" }
+                    { url: "assets/battle-1/artem_polienko/work-01-preview.jpg", fullUrl: "assets/battle-1/artem_polienko/work-01-full.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-02-preview.jpg", fullUrl: "assets/battle-1/artem_polienko/work-02-full.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-03-preview.jpg", fullUrl: "assets/battle-1/artem_polienko/work-03-full.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-04-preview.jpg", fullUrl: "assets/battle-1/artem_polienko/work-04-full.jpg" },
+                    { url: "assets/battle-1/artem_polienko/work-05-preview.jpg", fullUrl: "assets/battle-1/artem_polienko/work-05-full.jpg" }
                 ]
-            },
-            {
-                id: "nice2mitya",
-                name: "[Имя Участника]",
-                handle: "@nice2mitya",
-                telegramUrl: "https://t.me/nice2mitya",
-                works: []
-            },
-            {
-                id: "p1",
-                name: "[Имя Участника]",
-                handle: "@p1",
-                telegramUrl: "https://t.me/p1",
-                works: []
-            },
-            {
-                id: "sabdes",
-                name: "[Имя Участника]",
-                handle: "@sabdes",
-                telegramUrl: "https://t.me/sabdes",
-                works: []
             }
         ]
     },
     2: {
-        title: "Задание#2 FLOWOW",
+        title: "Задание #2 FLOWOW",
         taskHtml: `
             <div>
-                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
+                <div>Создайте серию картинок и видео для карточки товара на маркетплейсе</div>
+                <br/>
                 <span class="task-heading">Требования:</span>
                 <ul class="task-list">
                     <li>Изучить фирменный стиль [название бренда]</li>
@@ -769,41 +830,21 @@ const BATTLES_CONFIG = {
                 handle: "@AleksandraMalykh",
                 telegramUrl: "https://t.me/AleksandraMalykh",
                 works: [
-                    { url: "assets/battle-2/AleksandraMalykh/work-01.jpg" },
-                    { url: "assets/battle-2/AleksandraMalykh/work-02.jpg" },
-                    { url: "assets/battle-2/AleksandraMalykh/work-03.jpg" },
-                    { url: "assets/battle-2/AleksandraMalykh/work-04.jpg" },
-                    { url: "assets/battle-2/AleksandraMalykh/work-05.jpg" }
+                    { url: "assets/battle-2/AleksandraMalykh/work-01-preview.jpg", fullUrl: "assets/battle-2/AleksandraMalykh/work-01-full.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-02-preview.jpg", fullUrl: "assets/battle-2/AleksandraMalykh/work-02-full.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-03-preview.jpg", fullUrl: "assets/battle-2/AleksandraMalykh/work-03-full.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-04-preview.jpg", fullUrl: "assets/battle-2/AleksandraMalykh/work-04-full.jpg" },
+                    { url: "assets/battle-2/AleksandraMalykh/work-05-preview.jpg", fullUrl: "assets/battle-2/AleksandraMalykh/work-05-full.jpg" }
                 ]
-            },
-            {
-                id: "Eddsgn",
-                name: "[Имя Участника]",
-                handle: "@Eddsgn",
-                telegramUrl: "https://t.me/Eddsgn",
-                works: []
-            },
-            {
-                id: "kirillpolzikov",
-                name: "[Имя Участника]",
-                handle: "@kirillpolzikov",
-                telegramUrl: "https://t.me/kirillpolzikov",
-                works: []
-            },
-            {
-                id: "sabdes",
-                name: "[Имя Участника]",
-                handle: "@sabdes",
-                telegramUrl: "https://t.me/sabdes",
-                works: []
             }
         ]
     },
     3: {
-        title: "Задание#3 SPEEDO",
+        title: "Задание #3 SPEEDO",
         taskHtml: `
             <div>
-                Создайте серию картинок и видео для карточки товара на маркетплейсе<br/><br/>
+                <div>Создайте серию картинок и видео для карточки товара на маркетплейсе</div>
+                <br/>
                 <span class="task-heading">Требования:</span>
                 <ul class="task-list">
                     <li>Изучить фирменный стиль [название бренда]</li>
@@ -819,9 +860,9 @@ const BATTLES_CONFIG = {
                 handle: "@annaivoylova",
                 telegramUrl: "https://t.me/annaivoylova",
                 works: [
-                    { url: "assets/battle-3/annaivoylova/work-01.png" },
-                    { url: "assets/battle-3/annaivoylova/work-02.png" },
-                    { url: "assets/battle-3/annaivoylova/work-03.png" }
+                    { url: "assets/battle-3/annaivoylova/work-01-preview.jpg", fullUrl: "assets/battle-3/annaivoylova/work-01-full.jpg" },
+                    { url: "assets/battle-3/annaivoylova/work-02-preview.jpg", fullUrl: "assets/battle-3/annaivoylova/work-02-full.jpg" },
+                    { url: "assets/battle-3/annaivoylova/work-03-preview.jpg", fullUrl: "assets/battle-3/annaivoylova/work-03-full.jpg" }
                 ]
             }
         ]
@@ -956,6 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupTabs();
     setActiveTabs(currentBattle);
     renderBattle(currentBattle);
+    setupLightbox();
 });
 
 function setActiveTabs(battleId) {
@@ -1256,28 +1298,36 @@ function setupMediaAspect(card) {
 
 // Рендер медиа
 function renderMedia(media) {
+    const safeUrl = escapeHtml(String(media?.url || ''));
+    const safeFullUrl = escapeHtml(String(media?.fullUrl || ''));
     if (media.type === 'image') {
-        return `<img src="${media.url}" alt="Media" loading="lazy" decoding="async" />`;
+        // Если fullUrl не задан — открываем то же изображение
+        const full = safeFullUrl || safeUrl;
+        return `<img src="${safeUrl}" data-lightbox="1" data-full-url="${full}" alt="Media" loading="lazy" decoding="async" />`;
     } else if (media.type === 'video') {
         // Можно использовать YouTube embed или video tag
-        if (media.url.includes('youtube.com') || media.url.includes('youtu.be')) {
-            const videoId = extractYouTubeId(media.url);
+        if (safeUrl.includes('youtube.com') || safeUrl.includes('youtu.be')) {
+            const videoId = extractYouTubeId(safeUrl);
             return `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
         }
+        // Boomstream player page (может работать как embed, если хостинг разрешает iframe)
+        if (safeUrl.includes('play.boomstream.com/')) {
+            return `<iframe src="${safeUrl}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+        }
         // Локальные/прямые mp4/webm/ogg/mov
-        if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(media.url)) {
-            const typeAttr = media.url.toLowerCase().includes('.mov') ? 'video/quicktime' : 'video/mp4';
+        if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(safeUrl)) {
+            const typeAttr = safeUrl.toLowerCase().includes('.mov') ? 'video/quicktime' : 'video/mp4';
             const posterUrl = (typeof media.posterUrl === 'string' && media.posterUrl.trim()) ? media.posterUrl.trim() : '';
             const posterAttr = posterUrl ? ` poster="${escapeHtml(posterUrl)}"` : '';
             return `
                 <video controls playsinline preload="metadata" data-autoposter="1" crossorigin="anonymous"${posterAttr}>
-                    <source src="${media.url}" type="${typeAttr}" />
+                    <source src="${safeUrl}" type="${typeAttr}" />
                     Ваш браузер не поддерживает видео.
                 </video>
             `;
         }
-        // Фоллбек (если передали ссылку на картинку как "video" или другое)
-        return `<img src="${media.url}" alt="Video placeholder" loading="lazy" decoding="async" />`;
+        // Универсальный фоллбек: встраиваем страницу видеохостинга (embed URL)
+        return `<iframe src="${safeUrl}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
     }
     return 'Медиа загружается...';
 }
@@ -1293,6 +1343,7 @@ function generateStars(max = 10) {
 
 function inferMediaTypeFromUrl(url) {
     if (!url) return 'image';
+    if (String(url).includes('play.boomstream.com/')) return 'video';
     if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) return 'video';
     return 'image';
 }
@@ -1302,13 +1353,14 @@ function renderWorkItem(work, battleId, participantId, idx) {
     const type = work?.type || inferMediaTypeFromUrl(url);
     const label = (typeof work?.label === 'string' && work.label.trim()) ? work.label.trim() : '';
     const posterUrl = (typeof work?.posterUrl === 'string' && work.posterUrl.trim()) ? work.posterUrl.trim() : '';
+    const fullUrl = (typeof work?.fullUrl === 'string' && work.fullUrl.trim()) ? work.fullUrl.trim() : '';
 
     const safeUrl = escapeHtml(url);
     const safePid = escapeHtml(participantId);
     const safeLabel = label ? escapeHtml(label) : '';
 
     const mediaHtml = url
-        ? renderMedia({ type, url, posterUrl })
+        ? renderMedia({ type, url, fullUrl, posterUrl })
         : 'Медиа скоро появится...';
 
     return `
@@ -1430,6 +1482,60 @@ function setupWorkVoting(mediaItemEl) {
             successMsg.style.display = 'block';
             starsContainers.forEach(c => disableStars(c.querySelectorAll('.star')));
         }
+    });
+}
+
+function setupLightbox() {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    const closeBtn = document.getElementById('lightbox-close');
+    if (!lb || !img || !caption || !closeBtn) return;
+
+    let prevBodyOverflow = '';
+
+    const open = (fullUrl, capText) => {
+        const u = String(fullUrl || '').trim();
+        if (!u) return;
+        caption.textContent = capText || '';
+        img.removeAttribute('src');
+        img.setAttribute('src', u);
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        prevBodyOverflow = document.body.style.overflow || '';
+        document.body.style.overflow = 'hidden';
+    };
+
+    const close = () => {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        img.removeAttribute('src');
+        caption.textContent = '';
+        document.body.style.overflow = prevBodyOverflow;
+    };
+
+    // Делегирование клика по превью
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        const thumb = target.closest('img[data-lightbox="1"]');
+        if (!thumb) return;
+        e.preventDefault();
+
+        const fullUrl = thumb.getAttribute('data-full-url') || thumb.getAttribute('src') || '';
+        const item = thumb.closest('.media-item');
+        const labelEl = item ? item.querySelector('.media-label') : null;
+        const cap = labelEl && labelEl.textContent ? labelEl.textContent.trim() : '';
+        open(fullUrl, cap);
+    });
+
+    // Закрытие: кнопка / фон / Esc
+    closeBtn.addEventListener('click', close);
+    lb.addEventListener('click', (e) => {
+        if (e.target === lb) close();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('open')) close();
     });
 }
 
