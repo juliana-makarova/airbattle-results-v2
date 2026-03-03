@@ -295,12 +295,14 @@
             display: flex;
             gap: 20px;
             font-size: 14px;
+            flex-wrap: wrap;
         }
 
         .score-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-width: 140px;
         }
 
         .score-label {
@@ -1383,6 +1385,7 @@ function submitWorkVote(battleId, participantId, workUrl, voteData) {
         timestamp: Date.now()
     };
     saveWorkVotes();
+    clearBattleRatingsCache(battleId);
     // Отправляем в общий backend (не блокируем UI)
     submitWorkVoteToBackend(battleId, participantId, workUrl, voteData);
     return true;
@@ -1411,6 +1414,141 @@ async function submitWorkVoteToBackend(battleId, participantId, workUrl, voteDat
         }
     } catch (e) {
         console.warn('Vote submit exception:', e);
+    }
+}
+
+const battleRatingsCache = new Map();
+const battleRatingsPending = new Map();
+
+function clearBattleRatingsCache(battleId) {
+    battleRatingsCache.delete(Number(battleId));
+    battleRatingsPending.delete(Number(battleId));
+}
+
+function makeRatingMapFromRows(rows) {
+    const map = new Map();
+    (rows || []).forEach((row) => {
+        const pid = String(row?.participant_id || '');
+        if (!pid) return;
+        const votesCount = Number(row?.votes_count || 0);
+        const avgCreativity = Number(row?.avg_creativity || 0);
+        const avgApplicability = Number(row?.avg_applicability || 0);
+        const ratingRaw = Number(row?.rating);
+        const rating = Number.isFinite(ratingRaw)
+            ? ratingRaw
+            : ((avgCreativity + avgApplicability) / 2);
+
+        map.set(pid, {
+            votes_count: votesCount,
+            avg_creativity: avgCreativity,
+            avg_applicability: avgApplicability,
+            rating
+        });
+    });
+    return map;
+}
+
+function makeRatingMapFromVotes(rows) {
+    const grouped = new Map();
+    (rows || []).forEach((row) => {
+        const pid = String(row?.participant_id || '');
+        if (!pid) return;
+        const creativity = Number(row?.creativity || 0);
+        const applicability = Number(row?.applicability || 0);
+        if (!grouped.has(pid)) {
+            grouped.set(pid, { sumC: 0, sumA: 0, count: 0 });
+        }
+        const item = grouped.get(pid);
+        item.sumC += creativity;
+        item.sumA += applicability;
+        item.count += 1;
+    });
+
+    const result = new Map();
+    grouped.forEach((v, pid) => {
+        const avgC = v.count ? (v.sumC / v.count) : 0;
+        const avgA = v.count ? (v.sumA / v.count) : 0;
+        result.set(pid, {
+            votes_count: v.count,
+            avg_creativity: avgC,
+            avg_applicability: avgA,
+            rating: (avgC + avgA) / 2
+        });
+    });
+    return result;
+}
+
+async function loadBattleRatingsFromBackend(battleId) {
+    const bid = Number(battleId);
+    if (!isBackendEnabled()) return new Map();
+    if (battleRatingsCache.has(bid)) return battleRatingsCache.get(bid);
+    if (battleRatingsPending.has(bid)) return battleRatingsPending.get(bid);
+
+    const pending = (async () => {
+        try {
+            const { data, error } = await supabaseClient
+                .from('participant_rating')
+                .select('participant_id,votes_count,avg_creativity,avg_applicability,rating')
+                .eq('battle_id', bid);
+
+            if (error) throw error;
+
+            const map = makeRatingMapFromRows(data);
+            battleRatingsCache.set(bid, map);
+            return map;
+        } catch (viewError) {
+            // Фоллбек для случая, когда view еще не создана: агрегируем на клиенте из таблицы votes.
+            try {
+                const { data, error } = await supabaseClient
+                    .from('votes')
+                    .select('participant_id,creativity,applicability')
+                    .eq('battle_id', bid);
+
+                if (error) throw error;
+
+                const map = makeRatingMapFromVotes(data);
+                battleRatingsCache.set(bid, map);
+                return map;
+            } catch (votesError) {
+                console.warn('Ratings load failed:', viewError, votesError);
+                const empty = new Map();
+                battleRatingsCache.set(bid, empty);
+                return empty;
+            }
+        } finally {
+            battleRatingsPending.delete(bid);
+        }
+    })();
+
+    battleRatingsPending.set(bid, pending);
+    return pending;
+}
+
+function formatRatingValue(value) {
+    const num = Number(value);
+    if (!Number.isFinite(num) || num <= 0) return '—';
+    return num.toFixed(2);
+}
+
+async function hydrateParticipantRatingFromBackend(card, battleId, participantId) {
+    if (!isBackendEnabled()) return;
+    try {
+        const ratingEl = card.querySelector('.rating-value');
+        const votesEl = card.querySelector('.rating-votes-count');
+        const creativityEl = card.querySelector('.rating-creativity');
+        const applicabilityEl = card.querySelector('.rating-applicability');
+        if (!ratingEl || !votesEl || !creativityEl || !applicabilityEl) return;
+
+        const ratings = await loadBattleRatingsFromBackend(battleId);
+        const row = ratings.get(String(participantId));
+
+        const votesCount = Number(row?.votes_count || 0);
+        creativityEl.textContent = formatRatingValue(row?.avg_creativity);
+        applicabilityEl.textContent = formatRatingValue(row?.avg_applicability);
+        ratingEl.textContent = formatRatingValue(row?.rating);
+        votesEl.textContent = String(votesCount);
+    } catch (e) {
+        console.warn('Rating hydration failed:', e);
     }
 }
 
@@ -1490,6 +1628,24 @@ function createParticipantCard(participant, battleId) {
                 <div class="participant-name">${safeName}</div>
                 ${safeHandle && safeTg ? `<a class="participant-handle" href="${safeTg}" target="_blank" rel="noopener noreferrer">${safeHandle}</a>` : ''}
             </div>
+            <div class="participant-scores">
+                <div class="score-item">
+                    <span class="score-label">Количество голосов</span>
+                    <span class="score-value rating-votes-count">${isBackendEnabled() ? '…' : '0'}</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Креативность</span>
+                    <span class="score-value rating-creativity">${isBackendEnabled() ? '…' : '—'}</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Применимость</span>
+                    <span class="score-value rating-applicability">${isBackendEnabled() ? '…' : '—'}</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Общий рейтинг</span>
+                    <span class="score-value rating-value">${isBackendEnabled() ? '…' : '—'}</span>
+                </div>
+            </div>
         </div>
 
         ${worksHtml}
@@ -1520,6 +1676,7 @@ function createParticipantCard(participant, battleId) {
     // Комментарии: 1 на участника в рамках таба
     setupCommentForm(card, battleId, participant.id);
     hydrateCommentsFromBackend(card, battleId, participant.id);
+    hydrateParticipantRatingFromBackend(card, battleId, participant.id);
 
     // На мобилке подстраиваем aspect-ratio под реальный размер (десктоп — сетка стабильна)
     setupMediaAspect(card);
@@ -1904,6 +2061,8 @@ function setupWorkVoting(mediaItemEl) {
             submitBtn.style.display = 'none';
             successMsg.style.display = 'block';
             starsContainers.forEach(c => disableStars(c.querySelectorAll('.star')));
+            const card = mediaItemEl.closest('.participant-card');
+            if (card) hydrateParticipantRatingFromBackend(card, battleId, participantId);
         }
     });
 }
